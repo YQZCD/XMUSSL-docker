@@ -1,5 +1,5 @@
 # XMUSSL-docker
-由于厦门大学SSLVPN（EasyConnect）较差的兼容性和规范性，故使用“docker容器+服务器转发”的方法实现内网访问。
+不在本地运行厦门大学SSLVPN（EasyConnect），使用“docker容器+服务器转发”的方法实现内网访问。
 
 本方法参考资料将在尾部统一列出。
 
