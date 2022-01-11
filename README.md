@@ -157,9 +157,9 @@ sudo vi /etc/docker/daemon.json
 #### 5)在vim中输入以下内容。
 
 ```
- {
-      "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-    }
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+}
 ```
 
 ### 8.安装最新的Docker
@@ -190,26 +190,22 @@ docker run --device /dev/net/tun --cap-add NET_ADMIN -ti -v $HOME/.easyconn:/roo
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/Hagb/docker-easyconnect)
 
 ### 2.运行完上面的命令后，根据提示输入对应的
-· SSLVPN地址
+- `SSLVPN地址` : `https://sslvpn.xmu.edu.cn` 厦门大学SSLVPN地址
 
-```
-https://sslvpn.xmu.edu.cn #厦门大学SSLVPN地址
-```
+- `用户名` : 厦门大学学号
 
-* 用户名 #厦门大学学号
-
-* 密码 #[厦门大学Wi-Fi/VPN/宿舍网密码](https://pass.xmu.edu.cn/)
+- `密码` : [厦门大学Wi-Fi/VPN/宿舍网密码](https://pass.xmu.edu.cn/)
 
 
-### 3.不出意外就会有一个socks5的代理跑在服务器的1080端口了
+### 3.不出意外就会有一个socks5的代理跑在服务器的 '1080' 端口了
 
 ```
 lsof -i tcp:1080
 ```
 
-### 4.如果要访问git/ssh服务请在 ~/.ssh/config中添加配置文件
+### 4.如果要访问git/ssh服务请在 `~/.ssh/config` 中添加配置文件
 
-#### 1) 查看是否存在~/.ssh/，如果没有就创建。
+#### 1) 查看是否存在 `~/.ssh/` 如果没有就创建。
 
 ```
 cd 
@@ -239,7 +235,7 @@ ssh username@example.com
 
 ## 用 ssh 转发远服务器端口到本地
 
-由于这个sock5是不带鉴权的，所以不能直接把公网的端口打开，这样会有安全问题，我们用 ssh 把服务器的 1080 端口转发到本地的 1080 端口
+由于这个sock5是不带鉴权的，所以不能直接把公网的端口打开，这样会有安全问题，我们用 ssh 把服务器的 `1080` 端口转发到本地的 `1080` 端口
 
 ```
 ssh -L 1080:127.0.0.1:1080 你服务器的用户名@你的服务器 IP
@@ -253,7 +249,7 @@ clash的配置文件默认路径（以windows为例）
 C:\Users\你电脑的用户名\.config\clash\profiles
 ```
 
-在*********.yml（一般为一串数字）中增加以下内容
+在 `*********.yml`（一般为一串数字）中增加以下内容
 
 ```
 proxies:
@@ -262,9 +258,9 @@ rules:
  - IP-CIDR,***.**.**.*/24,XMUVPN
 ```
 
-‘✳’表示需要访问的内网地址，如果有其他规则在对应部分添加即可。
+- `***.**.**.*` 表示需要访问的内网地址，如果有其他规则在对应部分添加即可。
 
-## 到这里所有配置都完成了，并且只有访问`http://***.***.**.*`的流量才会走 vpn 的流量。
+## 到这里所有配置都完成了，并且只有访问 `http://***.***.**.*`的流量才会走 vpn 的流量。
 
 
 
