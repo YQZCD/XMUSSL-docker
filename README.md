@@ -183,7 +183,7 @@ touch ~/.easyconn
 docker run --device /dev/net/tun --cap-add NET_ADMIN -ti -v $HOME/.easyconn:/root/.easyconn -p 127.0.0.1:1080:1080 -e EC_VER=7.6.7 hagb/docker-easyconnect:cli
 ```
 
-其中EC_VER表示EasyConnect版本号,厦门大学使用的为7.6.7版本;hagb/docker-easyconnect:cli表示多版本（7.6.3, 7.6.7, 7.6.8）纯命令行版
+其中 `EC_VER` 表示EasyConnect版本号,厦门大学使用的为 `7.6.7` 版本;  `hagb/docker-easyconnect:cli` 表示多版本（ `7.6.3` , `7.6.7` , `7.6.8` ）纯命令行版
 
 详细信息见[@Hagb](https://github.com/Hagb)分享的内容
 
