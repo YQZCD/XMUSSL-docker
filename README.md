@@ -5,7 +5,7 @@
 
 ## 准备工作
 
- * 拥有公网IP的服务器（Debian系）
+ * 拥有公网IP的服务器（以Debian系为例）
 
  * Docker
  
