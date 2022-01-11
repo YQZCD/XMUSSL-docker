@@ -129,7 +129,7 @@ sudo add-apt-repository \
 sudo apt-get update
 ```
 
-### 7.到目录中设置daemon.json文件（值得注意的是，如果是首次安装，理论上是不会有 cd /etc/docker 这个目录滴，所以如果你真的是第一次安装， 请跳过此步骤，等你下面步骤报错之后，嘿嘿这个目录就会有了，然后从头走一遍你就会发现，这部可以用了）
+### 7.到目录中设置daemon.json文件（值得注意的是，如果是首次安装，理论上是不会有 cd /etc/docker 这个目录滴，所以如果你真的是第一次安装， 请跳过此步骤，等你下面步骤报错之后，嘿嘿这个目录就会有了，然后从头走一遍你就会发现，这步可以用了）
 
 #### 1) 进入Docker文件夹
 
@@ -137,7 +137,7 @@ sudo apt-get update
 cd /etc/docker/
 ```
 
-#### 2) 查看是否有daemon.json文件，没有就创建。
+#### 2) 查看是否有daemon.json文件，没有就创建
 
 ```
 ls
@@ -155,7 +155,7 @@ touch daemon.json
 sudo vi /etc/docker/daemon.json
 ```
 
-#### 5)在vim中按i编辑，输入以下内容后按ESC退出编辑模式，输入ZZ保存。
+#### 5)在vim中输入以下内容。
 
 ```
  {
@@ -175,6 +175,91 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo docker run hello-world
 ```
 
+## 部署EasyConnect
+
+### 1.在服务器中的Docker运行EasyConnect的容器
+
+```
+touch ~/.easyconn
+docker run --device /dev/net/tun --cap-add NET_ADMIN -ti -v $HOME/.easyconn:/root/.easyconn -p 127.0.0.1:1080:1080 -e EC_VER=7.6.7 hagb/docker-easyconnect:cli
+```
+
+### 2.运行完上面的命令后，根据提示输入对应的
+· SSLVPN地址
+
+```
+https://sslvpn.xmu.edu.cn #厦门大学SSLVPN地址
+```
+
+· 用户名 #厦门大学学号
+
+· 密码 #[厦门大学Wi-Fi/VPN/宿舍网密码](https://pass.xmu.edu.cn/)
+
+
+### 3.不出意外就会有一个socks5的代理跑在服务器的1080端口了
+
+```
+lsof -i tcp:1080
+```
+
+### 4.如果要访问git/ssh服务请在 ~/.ssh/config中添加配置文件
+
+#### 1) 查看是否存在~/.ssh/，如果没有就创建。
+
+```
+cd 
+ls -a
+```
+
+#### 2) 创建.ssh文件夹和config文件并编辑
+
+```
+mkdir .ssh
+cd .ssh
+vi config
+```
+
+#### 3) 在vim中输入以下内容
+
+```
+Host example.com #你要访问的SSH地址
+ProxyCommand=nc -X5 -x localhost:1080 %h %p
+```
+
+#### 4) 修改完成后可以先在服务器尝试连接SSH验证
+
+```
+ssh username@example.com
+```
+
+## 用 ssh 转发远服务器端口到本地
+
+由于这个sock5是不带鉴权的，所以不能直接把公网的端口打开，这样会有安全问题，我们用 ssh 把服务器的 1080 端口转发到本地的 1080 端口
+
+```
+ssh -L 1080:127.0.0.1:1080 你服务器的用户名@你的服务器 IP
+```
+
+## 配置clash代理规则
+
+clash的配置文件默认路径（以windows为例）
+
+```
+C:\Users\你电脑的用户名\.config\clash\profiles
+```
+
+在*********.yml（一般为一串数字）中增加以下内容
+
+```
+proxies:
+  - {name: "XMUVPN", server: "127.0.0.1", port: 1080, type: socks5}
+rules:
+ - IP-CIDR,***.**.**.*/24,XMUVPN
+```
+
+‘✳’表示需要访问的内网地址，如果有其他规则在对应部分添加即可。
+
+## 到这里所有配置都完成了，并且只有访问`http://***.***.**.*`的流量才会走 vpn 的流量。
 
 
 
