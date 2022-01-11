@@ -3,14 +3,13 @@
 
 本方法参考资料将在尾部统一列出。
 
-EasyConnect来自[@shmille](https://github.com/shmilee) 提供的[命令行版客户端 deb 包](https://github.com/shmilee/scripts/releases/download/v0.0.1/easyconn_7.6.8.2-ubuntu_amd64.deb)。
 ## 准备工作
 
- · 拥有公网IP的服务器（Debian系）
+ * 拥有公网IP的服务器（Debian系）
 
- · Docker
+ * Docker
  
- · [Clash](https://github.com/Fndroid/clash_for_windows_pkg/releases)
+ * [Clash](https://github.com/Fndroid/clash_for_windows_pkg/releases)
  
 ## 卸载Docker
 
@@ -129,7 +128,7 @@ sudo add-apt-repository \
 sudo apt-get update
 ```
 
-### 7.到目录中设置daemon.json文件（值得注意的是，如果是首次安装，理论上是不会有 cd /etc/docker 这个目录滴，所以如果你真的是第一次安装， 请跳过此步骤，等你下面步骤报错之后，嘿嘿这个目录就会有了，然后从头走一遍你就会发现，这步可以用了）
+### 7.到目录中设置daemon.json文件（值得注意的是，如果是首次安装，理论上是不会有 cd /etc/docker 这个目录滴，所以如果你真的是第一次安装， 请新建目录或者跳过此步骤，等你下面步骤报错之后，嘿嘿这个目录就会有了，然后从头走一遍你就会发现，这步可以用了）
 
 #### 1) 进入Docker文件夹
 
@@ -184,6 +183,12 @@ touch ~/.easyconn
 docker run --device /dev/net/tun --cap-add NET_ADMIN -ti -v $HOME/.easyconn:/root/.easyconn -p 127.0.0.1:1080:1080 -e EC_VER=7.6.7 hagb/docker-easyconnect:cli
 ```
 
+其中EC_VER表示EasyConnect版本号,厦门大学使用的为7.6.7版本;hagb/docker-easyconnect:cli表示多版本（7.6.3, 7.6.7, 7.6.8）纯命令行版
+
+详细信息见[@Hagb](https://github.com/Hagb)分享的内容
+
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/Hagb/docker-easyconnect)
+
 ### 2.运行完上面的命令后，根据提示输入对应的
 · SSLVPN地址
 
@@ -191,9 +196,9 @@ docker run --device /dev/net/tun --cap-add NET_ADMIN -ti -v $HOME/.easyconn:/roo
 https://sslvpn.xmu.edu.cn #厦门大学SSLVPN地址
 ```
 
-· 用户名 #厦门大学学号
+* 用户名 #厦门大学学号
 
-· 密码 #[厦门大学Wi-Fi/VPN/宿舍网密码](https://pass.xmu.edu.cn/)
+* 密码 #[厦门大学Wi-Fi/VPN/宿舍网密码](https://pass.xmu.edu.cn/)
 
 
 ### 3.不出意外就会有一个socks5的代理跑在服务器的1080端口了
@@ -263,3 +268,16 @@ rules:
 
 
 
+## 参考资料
+
+EasyConnect来自[@shmille](https://github.com/shmilee) 提供的[命令行版客户端 deb 包](https://github.com/shmilee/scripts/releases/download/v0.0.1/easyconn_7.6.8.2-ubuntu_amd64.deb)
+
+特别感谢[@Hagb](https://github.com/Hagb)慷慨分享的[docker-easyconnect](https://github.com/Hagb/docker-easyconnect)
+
+[Ubuntu 20.04 安装 docker 详解](https://blog.csdn.net/u010381752/article/details/114086343)
+
+[ubuntu 完全干净的卸载docker](https://blog.csdn.net/xbeethoven/article/details/107883970)
+
+[使用 docker 封印 EasyConnect](https://taoshu.in/easyconnect-in-docker.html)
+
+[M1 Mac 用不了深信服 easyconnet？ 用 docker+clash封印它](https://zhuanlan.zhihu.com/p/385845245)
