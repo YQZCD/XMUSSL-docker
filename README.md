@@ -1,3 +1,6 @@
+# 注意！！
+由于厦门大学VPN认证方法的修改，本方法已经失效。
+
 # XMUSSL-docker
 不在本地运行厦门大学SSLVPN（EasyConnect），使用“docker容器+服务器转发”的方法实现内网访问。
 
